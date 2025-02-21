@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Rare Disease Diagnostic Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #036379;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+            z-index: 1000;
+            transition: 0.3s ease-in-out;
+        }
+
+        .navbar:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #74ebd5;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #74ebd5;
+            transform: scale(1.1);
+        }
+
+        /* Sign In / Sign Up Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-buttons button {
+            background: #74ebd5;
+            color: black;
+            border: none;
+            padding: 8px 14px;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .auth-buttons button:hover {
+            background: #acb6e5;
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            background: url('medi.png') no-repeat center center/cover;
+            position: relative;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: slideUp 1.5s forwards;
+        }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 28px;
+            background: #4CAF50;
+            color: white;
+            font-size: 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+
+        /* Authentication Section */
+        .auth-section {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            text-align: center;
+        }
+
+        .auth-section.active {
+            display: block;
+        }
+
+        .auth-section h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .toggle-link {
+            color: #74ebd5;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #74ebd5;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        .footer a:hover {
+            color: #acb6e5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">AI Diagnosis</div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">How It Works</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button onclick="toggleAuth('sign-in')">Sign In</button>
+                <button onclick="toggleAuth('sign-up')">Sign Up</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AI-Powered Rare Disease Diagnosis</h1>
+            <p>Early detection with cutting-edge AI technology.</p>
+            <a href="#diagnosis-section" class="cta-btn">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Authentication Section -->
+    <div class="auth-section" id="auth-modal">
+        <h2 id="auth-title">Sign In</h2>
+        <input type="email" placeholder="Enter Email">
+        <input type="password" placeholder="Enter Password">
+        <button onclick="authenticate()">Submit</button>
+        <p class="toggle-link" onclick="toggleAuth()">Don't have an account? Sign Up</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 AI Diagnosis Tool. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleAuth(mode) {
+            let modal = document.getElementById("auth-modal");
+            let title = document.getElementById("auth-title");
+
+            if (mode === "sign-in") {
+                title.innerText = "Sign In";
+            } else {
+                title.innerText = "Sign Up";
+            }
+
+            modal.classList.toggle("active");
+        }
+    </script>
+
+</body>
+</html>
