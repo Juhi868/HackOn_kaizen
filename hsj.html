@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #272b39; /* Solid background color */
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 40%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f6f9f8; /* Accent color for the heading */
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #eee; /* Slightly lighter color for labels */
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.8); 
+            color: #333; 
+            box-sizing: border-box; 
+        }
+
+        textarea {
+            resize: vertical; 
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease; /* Reduced animation */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Slightly darker on hover */
+        }
+
+        input:focus, select:focus, textarea:focus {
+            box-shadow: 0 0 5px rgba(116, 235, 213, 0.7); /* Subtle glow effect on focus */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Personal Details</h1>
+        <form id="personalDetailsForm">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="parentsName">Parents' Name:</label>
+            <input type="text" id="parentsName" name="parentsName" required>
+
+            <label for="bloodGroup">Blood Group:</label>
+            <select id="bloodGroup" name="bloodGroup">
+                <option value="">Select</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+            <label for="contactNumber">Contact Number:</label>
+            <input type="tel" id="contactNumber" name="contactNumber" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="medicalHistory">Previous Medical History:</label>
+            <textarea id="medicalHistory" name="medicalHistory" rows="4"></textarea>
+
+             <label for="emergencyContactNumber">Emergency Contact Number:</label>
+             <input type="tel" id="emergencyContactNumber" name="emergencyContactNumber" required>
+
+             <button type="submit">Submit</button>
+         </form>
+     </div>
+
+     <script>
+         document.getElementById('personalDetailsForm').addEventListener('submit', function(event) {
+             event.preventDefault(); 
+             const formData = new FormData(this);
+             const data = Object.fromEntries(formData.entries());
+             console.log(data);
+         });
+     </script>
+</body>
+</html>
